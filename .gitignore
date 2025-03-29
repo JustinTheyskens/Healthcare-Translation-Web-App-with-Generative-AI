@@ -1,0 +1,7 @@
+.env.local
+appsettings.json
+bin/
+obj/
+node_modules/
+pages/
+google-key.json
