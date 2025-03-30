@@ -21,4 +21,4 @@ A web-based prototype that enables real-time, multilingual translation between p
 - Presentation: An explanation of your approach and how generative AI was used.
 
 ## Presentation
-WIP
+https://www.loom.com/share/8f36c32a9c164a969f14992da2716bdc?sid=f46f706a-5b4d-4154-8f9c-556fc3ce5c71
