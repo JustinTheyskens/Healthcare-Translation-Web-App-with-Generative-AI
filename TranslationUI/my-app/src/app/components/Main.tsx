@@ -6,17 +6,25 @@ export default function Main() {
   const [text, setText] = useState(""); // Text for translation & TTS
   const [output, setOutput] = useState(""); // Output text
   const [loading, setLoading] = useState(false); // Loading state
-  const [audioFilePath, setAudioFilePath] = useState(""); // File path input for speech-to-text
-  const [fileName, setFileName] = useState(""); // File name input for TTS output
+  const [audioFilePath, setAudioFilePath] = useState(""); // File path input for speech-to-text & TTS
+  const [fileName, setFileName] = useState(""); // File name input for TTS
+  const [languageCode, setLanguageCode] = useState("en-US"); // Language input for both TTS and Translation
 
   // ✅ Translate API Call
   const handleTranslate = async () => {
+    if (!text) {
+      setOutput("Please enter text to translate.");
+      return;
+    }
+
     setLoading(true);
     try {
+      const targetLanguage = languageCode.trim() || "es"; // Default to Spanish if empty
+
       const response = await fetch("http://localhost:5067/api/translation/translate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, targetLanguage: "es" }),
+        body: JSON.stringify({ text, targetLanguage }),
       });
 
       const data = await response.json();
@@ -43,13 +51,17 @@ export default function Main() {
       setOutput("Please enter a file name.");
       return;
     }
+    if (!languageCode) {
+      setOutput("Please enter a language code (e.g., en-US).");
+      return;
+    }
 
     setLoading(true);
     try {
       const response = await fetch("http://localhost:5067/api/text/text-to-speech", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, destinationPath: audioFilePath, fileName }),
+        body: JSON.stringify({ text, destinationPath: audioFilePath, fileName, languageCode }),
       });
 
       const data = await response.json();
@@ -106,23 +118,23 @@ export default function Main() {
 
       <br />
 
-      {/* File Name Input for TTS Output */}
+      {/* Audio File Path Input for Speech-to-Text & TTS */}
       <input
         type="text"
-        placeholder="Enter file name for TTS output..."
-        value={fileName}
-        onChange={(e) => setFileName(e.target.value)}
+        placeholder="Enter destination file path..."
+        value={audioFilePath}
+        onChange={(e) => setAudioFilePath(e.target.value)}
         style={{ width: "80%", padding: "10px", marginBottom: "10px" }}
       />
 
       <br />
 
-      {/* Audio File Path Input for Speech-to-Text */}
+      {/* File Name Input for TTS */}
       <input
         type="text"
-        placeholder="Enter audio file path..."
-        value={audioFilePath}
-        onChange={(e) => setAudioFilePath(e.target.value)}
+        placeholder="Enter file name..."
+        value={fileName}
+        onChange={(e) => setFileName(e.target.value)}
         style={{ width: "80%", padding: "10px", marginBottom: "10px" }}
       />
 
@@ -135,6 +147,17 @@ export default function Main() {
       
       <h3>Output:</h3>
       <p>{output}</p>
+
+      {/* Language Code Input for Both Translation and TTS (Bottom Right Corner) */}
+      <div style={{ position: "absolute", bottom: "20px", right: "20px" }}>
+        <input
+          type="text"
+          placeholder="Language (e.g., en-US, es, fr)"
+          value={languageCode}
+          onChange={(e) => setLanguageCode(e.target.value)}
+          style={{ width: "150px", padding: "5px" }}
+        />
+      </div>
     </div>
   );
 }
