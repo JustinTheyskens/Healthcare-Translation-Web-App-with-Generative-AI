@@ -7,6 +7,7 @@ export default function Main() {
   const [output, setOutput] = useState(""); // Output text
   const [loading, setLoading] = useState(false); // Loading state
   const [audioFilePath, setAudioFilePath] = useState(""); // File path input for speech-to-text
+  const [fileName, setFileName] = useState(""); // File name input for TTS output
 
   // ✅ Translate API Call
   const handleTranslate = async () => {
@@ -30,19 +31,33 @@ export default function Main() {
 
   // ✅ Text-to-Speech API Call
   const handleTextToSpeech = async () => {
+    if (!text) {
+      setOutput("Please enter text to convert to speech.");
+      return;
+    }
+    if (!audioFilePath) {
+      setOutput("Please enter a destination file path.");
+      return;
+    }
+    if (!fileName) {
+      setOutput("Please enter a file name.");
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await fetch("http://localhost:5067/api/text/text-to-speech", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ text, destinationPath: audioFilePath, fileName }),
       });
 
-      const audioBlob = await response.blob();
-      const audioUrl = URL.createObjectURL(audioBlob);
-      const audio = new Audio(audioUrl);
-      audio.play();
-      setOutput("Playing audio...");
+      const data = await response.json();
+      if (response.ok) {
+        setOutput(`Audio file saved at: ${data.filePath}`);
+      } else {
+        setOutput(data.message || "Error occurred.");
+      }
     } catch (error) {
       console.error("Text-to-Speech error:", error);
       setOutput("Error occurred.");
@@ -86,6 +101,17 @@ export default function Main() {
         value={text}
         onChange={(e) => setText(e.target.value)}
         rows={4}
+        style={{ width: "80%", padding: "10px", marginBottom: "10px" }}
+      />
+
+      <br />
+
+      {/* File Name Input for TTS Output */}
+      <input
+        type="text"
+        placeholder="Enter file name for TTS output..."
+        value={fileName}
+        onChange={(e) => setFileName(e.target.value)}
         style={{ width: "80%", padding: "10px", marginBottom: "10px" }}
       />
 
