@@ -21,9 +21,33 @@ public class TextController : ControllerBase
             return BadRequest(new { message = "Text is required" });
         }
 
-        string outputPath = $"C:/Users/Justi/Desktop/{request.FileName}.mp3";  // Save output as MP3 file on the Desktop
+        if (string.IsNullOrEmpty(request.DestinationPath)) // || !Directory.Exists(request.DestinationPath))
+        {
+            return BadRequest(new { message = "Destination Path Required." });
+        }
+
+        if (!request.DestinationPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+        {
+            request.DestinationPath += Path.DirectorySeparatorChar; // Add the separator if missing
+        }       
+
+        if (string.IsNullOrEmpty(request.FileName) || Path.GetInvalidFileNameChars().Any(c => request.FileName.Contains(c)))
+        {
+            return BadRequest(new { message = "Please provide a valid file name." });
+        }
+
+        string outputPath = Path.Combine(request.DestinationPath, $"{request.FileName}.mp3");
+
         var result = await _textToSpeechService.ConvertTextToSpeechAsync(request.Text, outputPath);
 
-        return Ok(new { message = result, filePath = outputPath });
+        // Log the output path for debugging 
+        Console.WriteLine($"Output Path: {outputPath}");
+
+        if (string.IsNullOrEmpty(result))
+        {
+            return StatusCode(500, new { message = "Failed to convert text to speech"});
+        }
+
+        return Ok(new { message = "Conversion successful", filePath = outputPath });
     }
 }

@@ -8,10 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Load the env variables from .env.local
 Env.Load("../.env.local");
 
-// Google Cloud Creds
-// var googleCredentialsPath = builder.Configuration["GoogleCloud:CredentialPath"];
-// Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", googleCredentialsPath);
-
 var googleCredentialsPath = Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS");
 Console.WriteLine("Google Credentials Path: " + googleCredentialsPath); 
 if (!string.IsNullOrEmpty(googleCredentialsPath))
@@ -39,9 +35,21 @@ builder.Services.AddSingleton<TextToSpeechService>();
 
 // Auth
 builder.Services.AddAuthentication(); 
-builder.Services.AddAuthorization();  
+builder.Services.AddAuthorization();
+
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy => policy.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+});
 
 var app = builder.Build();
+
+// CORS
+app.UseCors("AllowAll"); 
 
 app.UseRouting();         
 app.UseAuthorization();  
