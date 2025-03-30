@@ -3,14 +3,14 @@
 import { useState } from "react";
 
 export default function Main() {
-  const [text, setText] = useState(""); // Text for translation & TTS
-  const [output, setOutput] = useState(""); // Output text
-  const [loading, setLoading] = useState(false); // Loading state
-  const [audioFilePath, setAudioFilePath] = useState(""); // File path input for speech-to-text & TTS
-  const [fileName, setFileName] = useState(""); // File name input for TTS
-  const [languageCode, setLanguageCode] = useState("en-US"); // Language input for both TTS and Translation
+  const [text, setText] = useState(""); 
+  const [output, setOutput] = useState(""); 
+  const [loading, setLoading] = useState(false); 
+  const [audioFilePath, setAudioFilePath] = useState("");
+  const [fileName, setFileName] = useState(""); 
+  const [languageCode, setLanguageCode] = useState("en-US"); 
 
-  // ✅ Translate API Call
+
   const handleTranslate = async () => {
     if (!text) {
       setOutput("Please enter text to translate.");
@@ -19,7 +19,7 @@ export default function Main() {
 
     setLoading(true);
     try {
-      const targetLanguage = languageCode.trim() || "es"; // Default to Spanish if empty
+      const targetLanguage = languageCode.trim() || "es"; 
 
       const response = await fetch("http://localhost:5067/api/translation/translate", {
         method: "POST",
@@ -37,7 +37,7 @@ export default function Main() {
     }
   };
 
-  // ✅ Text-to-Speech API Call
+
   const handleTextToSpeech = async () => {
     if (!text) {
       setOutput("Please enter text to convert to speech.");
@@ -78,7 +78,7 @@ export default function Main() {
     }
   };
 
-  // ✅ Speech-to-Text API Call
+
   const handleSpeechToText = async () => {
     if (!audioFilePath) {
       setOutput("Please enter an audio file path.");
