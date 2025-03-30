@@ -2,6 +2,6 @@ namespace TranslationAPI.Models
 {
     public class GoogleCloudSettings
     {
-        public string CredentialPath { get; set; }  // Path to the JSON credentials file
+        public string CredentialPath { get; set; } 
     }
 }
