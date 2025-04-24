@@ -2,13 +2,11 @@
 A web-based prototype that enables real-time, multilingual translation between patients and healthcare providers. This application should convert spoken input into text, provide a live transcript, and offer a translated version with audio playback.
 
 ## Core Functionalities:
-
 - Voice-to-Text with Generative AI: Convert spoken input into a text transcript, using AI to enhance transcription accuracy, especially for medical terms.
-- Real-Time Translation and Audio Playback: Provide real-time translation of the transcript with a "Speak" button for audio playback.
-- Mobile-First Design: Ensure the app is responsive and optimized for mobile and desktop use.
+- Audio Playback: Provide an audio playback of a written transcript.
+- Translation: Provide a translation of the written transcript.
 
 ## Technical Requirements:
-
 - Generative AI Tools: Use generative AI (OpenAI) for both translation and coding assistance.
 - Speech Recognition API: Integrate a speech recognition API (Google Speech-to-Text).
 - Deployment Platform: Deploy on a platform like Vercel, V0, or Cursor. Provide a live link.
