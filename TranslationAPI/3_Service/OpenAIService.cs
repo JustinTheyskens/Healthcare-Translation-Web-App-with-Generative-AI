@@ -18,6 +18,10 @@ namespace TranslationAPI.Services
             _openAiClient = new OpenAIClient(openAiOptions.Value.ApiKey);
         }
 
+            /// <summary>
+            /// Generates a test audio file using Google Cloud Text-to-Speech and saves it to the desktop.
+            /// Note: This method is for testing purposes and uses Google Cloud services, not OpenAI.
+            /// </summary>
             public void GenerateAudio()
     {
         string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -57,6 +61,11 @@ namespace TranslationAPI.Services
         Console.WriteLine($"Audio file created: {filePath}");
     }
 
+        /// <summary>
+        /// Uses the OpenAI API to improve the translation of a given text.
+        /// </summary>
+        /// <param name="text">The text to be improved.</param>
+        /// <returns>The improved text, or an error message if the operation fails.</returns>
         public async Task<string> ImproveTranslationAsync(string text)
         {
             var chatRequest = new ChatRequest(

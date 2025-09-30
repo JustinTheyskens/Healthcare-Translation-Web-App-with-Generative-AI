@@ -17,6 +17,11 @@ namespace TranslationAPI.Controllers
             _translationClient = TranslationClient.Create();
         }
 
+        /// <summary>
+        /// Translates text to a specified target language.
+        /// </summary>
+        /// <param name="request">The request containing the text and target language.</param>
+        /// <returns>The translated text.</returns>
         [HttpPost("translate")]
         public async Task<IActionResult> TranslateText([FromBody] TranslationRequest request)
         {

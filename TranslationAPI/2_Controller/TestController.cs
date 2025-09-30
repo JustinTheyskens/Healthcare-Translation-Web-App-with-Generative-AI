@@ -6,6 +6,10 @@ namespace TranslationAPI.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
+        /// <summary>
+        /// A simple endpoint to check if the API is running.
+        /// </summary>
+        /// <returns>A success message.</returns>
         [HttpGet]
         public IActionResult Get()
         {

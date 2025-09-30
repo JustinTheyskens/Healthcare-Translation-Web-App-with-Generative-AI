@@ -13,6 +13,12 @@ public class TextToSpeechService
         _textToSpeechClient = TextToSpeechClient.Create();
     }
 
+    /// <summary>
+    /// Converts text to speech using the Google Cloud Text-to-Speech API and saves it to a file.
+    /// </summary>
+    /// <param name="text">The text to be converted to speech.</param>
+    /// <param name="outputPath">The path where the generated audio file will be saved.</param>
+    /// <returns>A message indicating the path where the audio file was saved.</returns>
     public async Task<string> ConvertTextToSpeechAsync(string text, string outputPath)
     {
         // Set up the Synthesis Input

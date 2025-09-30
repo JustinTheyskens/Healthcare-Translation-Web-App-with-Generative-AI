@@ -12,7 +12,11 @@ public class TextController : ControllerBase
         _textToSpeechService = textToSpeechService;
     }
 
-    // POST api/text-to-speech
+    /// <summary>
+    /// Converts text to speech and saves it as an MP3 file.
+    /// </summary>
+    /// <param name="request">The request containing the text, destination path, and file name.</param>
+    /// <returns>A success message and the path to the saved MP3 file.</returns>
     [HttpPost("text-to-speech")]
     public async Task<IActionResult> ConvertTextToSpeech([FromBody] TextToSpeechRequest request)
     {

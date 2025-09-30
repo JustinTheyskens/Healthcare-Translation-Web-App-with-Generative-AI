@@ -12,6 +12,11 @@ public class SpeechToTextService
         _speechClient = SpeechClient.Create();
     }
 
+    /// <summary>
+    /// Converts speech from an audio file to text using the Google Cloud Speech-to-Text API.
+    /// </summary>
+    /// <param name="audioFilePath">The path to the audio file to be transcribed.</param>
+    /// <returns>The transcribed text, or a message indicating that no speech was detected.</returns>
     public async Task<string> ConvertSpeechToTextAsync(string audioFilePath)
     {
         //debugging confirm path
