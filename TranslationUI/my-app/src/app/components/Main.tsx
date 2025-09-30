@@ -2,15 +2,30 @@
 
 import { useState } from "react";
 
+/**
+ * The main component for the Healthcare Translation App.
+ * It handles user input, makes API calls for translation, text-to-speech, and speech-to-text,
+ * and displays the results.
+ */
 export default function Main() {
-  const [text, setText] = useState(""); 
-  const [output, setOutput] = useState(""); 
-  const [loading, setLoading] = useState(false); 
+  // State for the input text to be translated or converted to speech.
+  const [text, setText] = useState("");
+  // State for the output text from the API calls.
+  const [output, setOutput] = useState("");
+  // State to indicate whether an API call is in progress.
+  const [loading, setLoading] = useState(false);
+  // State for the path of the audio file for speech-to-text or text-to-speech.
   const [audioFilePath, setAudioFilePath] = useState("");
-  const [fileName, setFileName] = useState(""); 
-  const [languageCode, setLanguageCode] = useState("en-US"); 
+  // State for the name of the file to be saved in text-to-speech.
+  const [fileName, setFileName] = useState("");
+  // State for the target language code for translation or text-to-speech.
+  const [languageCode, setLanguageCode] = useState("en-US");
 
 
+  /**
+   * Handles the translation of the input text.
+   * It calls the translation API endpoint and updates the output state with the translated text.
+   */
   const handleTranslate = async () => {
     if (!text) {
       setOutput("Please enter text to translate.");
@@ -38,6 +53,10 @@ export default function Main() {
   };
 
 
+  /**
+   * Handles the conversion of the input text to speech.
+   * It calls the text-to-speech API endpoint and updates the output state with the path to the saved audio file.
+   */
   const handleTextToSpeech = async () => {
     if (!text) {
       setOutput("Please enter text to convert to speech.");
@@ -79,6 +98,10 @@ export default function Main() {
   };
 
 
+  /**
+   * Handles the conversion of speech from an audio file to text.
+   * It calls the speech-to-text API endpoint and updates the output state with the transcribed text.
+   */
   const handleSpeechToText = async () => {
     if (!audioFilePath) {
       setOutput("Please enter an audio file path.");

@@ -18,6 +18,11 @@ public class SpeechController : ControllerBase
     }
     
 
+    /// <summary>
+    /// Converts speech from an audio file to text.
+    /// </summary>
+    /// <param name="request">The request containing the path to the audio file.</param>
+    /// <returns>The transcribed text.</returns>
     [HttpPost("speech-to-text")]
     public async Task<IActionResult> SpeechToText([FromBody] AudioFileRequest request)
     {
