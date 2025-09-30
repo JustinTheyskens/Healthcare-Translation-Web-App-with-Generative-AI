@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TranslationUI
 
-## Getting Started
+This is the frontend for the Healthcare Translation Web App. It's a Next.js application that provides the user interface for real-time translation.
 
-First, run the development server:
+## Structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The application is built with Next.js and uses React for the user interface.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   **`src/app/`**: This is the main application directory.
+    -   **`layout.tsx`**: The main layout of the application.
+    -   **`page.tsx`**: The main page of the application.
+    -   **`components/`**: Contains the reusable React components.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  **Prerequisites:**
+    *   Node.js and npm (or yarn) installed.
 
-## Learn More
+2.  **Installation:**
+    *   Navigate to the `TranslationUI/my-app` directory.
+    *   Run `npm install` to install the dependencies.
 
-To learn more about Next.js, take a look at the following resources:
+3.  **Configuration:**
+    *   The frontend is configured to connect to the `TranslationAPI` running on `http://localhost:5000`. If your API is running on a different port, you will need to update the API URLs in the components.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4.  **Running the Application:**
+    *   Run `npm run dev` to start the development server.
+    *   The application will be available at `http://localhost:3000`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Components
 
-## Deploy on Vercel
+The application is composed of several key components:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+-   **`AudioRecorder`**: Handles audio recording and sends it to the backend for transcription.
+-   **`TranslationDisplay`**: Displays the original transcript and the translated text.
+-   **`LanguageSelector`**: Allows the user to select the target language for translation.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+These components work together to provide a seamless translation experience. The state is managed within the main page component and passed down to the child components as props.
